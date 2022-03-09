@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     'use strict';
-    var prices = {"hotdog": 4.50, "fries": 3.00, "soda": 1.50, "sauerkraut": 1};
 
+    var prices = {"hotdog": 4.50, "fries": 3.00, "soda": 1.50, "sauerkraut": 1};
     document.querySelector('input[type=submit]').addEventListener('click', function (e) {
         let numHotDogs = document.querySelector('input[name=hotdog]').value;
         let numFries = document.querySelector('input[name=fries]').value;
@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var q = getQuantity(numHotDogs, numFries, numSodas, numSks);
         gatherTotals(q);
         document.querySelector('#order-total').innerHTML = "Your order total is: $" + totalItems(prices);
+        document.querySelector('input[type=submit]').style.visibility = "hidden";
+        // Clear values from form
+        newOrder();
         e.preventDefault();
     });
 
@@ -23,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function gatherTotals(q) {
+        
         var index = 0;
         for (let price in prices) {
             prices[price] = prices[price] * q[index];
@@ -31,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(prices);
         return prices;
     }
-
     function totalItems(obj) {
         var total = 0;
         for (let value in obj) {
@@ -40,5 +43,14 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(total);
         return total;
     }
+
+    function newOrder(){
+        document.querySelector('input[type=submit]').style.visibility = "hiidden";
+        document.querySelector('#new-order').style.visibility = "visible";
+        document.querySelector('#new-order').addEventListener('click', function() {
+            console.log("Clicked");
+        });
+    }
+    
     console.log("DOM content parsed and loaded");
 }); // end DOMContentLoaded
